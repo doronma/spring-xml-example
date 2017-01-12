@@ -9,6 +9,7 @@ import beans.Bean2;
 import beans.Bean2Son;
 import beans.HelloStarterBean;
 import beans.HelloWorldBean;
+import event_sample.SimpleService;
 
 public class Mainapp {
 	public static void main(String[] args) {
@@ -27,7 +28,8 @@ public class Mainapp {
 		System.out.println(bean2.getLongName());
 		System.out.println("Bean 2 son name - " + ((Bean2Son)context.getBean("bean2Son")).getMyname());
 		
-		
+		SimpleService service = (SimpleService)context.getBean("simpleService");
+		service.doService();
 		
 		((ConfigurableApplicationContext)context).close();
 		
