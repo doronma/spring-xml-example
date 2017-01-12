@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd"
 	default-init-method="init">
-
+	<import resource="BeansEx.xml" />
 
 	<bean id="helloWorld" class="beans.HelloWorldBean" autowire="no">
 		<property name="message" value="Hello World"></property>
 	</bean>
-	<bean id="bean1" class="beans.Bean1">
-		<constructor-arg name="bean1Name" type="String" value="Bean1"></constructor-arg>
-		<property name="msg" value="Some Message"></property>
-	</bean>
+
 	<bean id="helloStarterBean" class="beans.HelloStarterBean"
 		autowire-candidate="false">
 		<constructor-arg ref="helloWorld"></constructor-arg>
 		<property name="bean1" ref="bean1"></property>
 
+		<property name="messageSource" ref="messageSource"></property>
 	</bean>
 	<bean id="bean2" class="beans.Bean2" destroy-method="cleanUp">
 		<constructor-arg name="bean2Name" value="Hello"></constructor-arg>
-		<constructor-arg name="anotherField" value="Doron"></constructor-arg>
+		<constructor-arg name="anotherField" value="Another..."></constructor-arg>
 	</bean>
 	<bean id="bean2Son" class="beans.Bean2Son" parent="bean2">
-		<property name="myname" value="Doron"></property>
+		<property name="myname" value="${myName}"></property>
 	</bean>
 	<bean id="bean2GrandSon" parent="bean2Son">
 	</bean>
 	<bean class="post_processor.MyBeanPostProcessor">
+	</bean>
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="app.properties"></property>
+	</bean>
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages</value>
+			</list>
+		</property>
 	</bean>
 </beans>

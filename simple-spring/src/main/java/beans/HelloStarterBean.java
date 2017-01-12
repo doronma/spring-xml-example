@@ -1,9 +1,20 @@
 package beans;
 
+import org.springframework.context.MessageSource;
+
 public class HelloStarterBean {
 	private HelloWorldBean helloWorldBean;
 	private Bean1 bean1;
 	private Bean2 bean2;
+	private MessageSource messageSource;
+	
+	public void setMessageSource(MessageSource source){
+		messageSource=source;
+	}
+	
+	public String getResourceMessage(){
+		return messageSource.getMessage("message", null, "Default",null);
+	}
 
 	public Bean1 getBean1() {
 		return bean1;
