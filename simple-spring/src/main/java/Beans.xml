@@ -44,4 +44,5 @@
 	<bean id="simpleService" class="event_sample.SimpleService"></bean>
 	<bean id="simpleListener" class="event_sample.SimpleListener"></bean>
 	
+	<bean class="post_processor.MyBeanFactoryPostProcessor"></bean>
 </beans>
